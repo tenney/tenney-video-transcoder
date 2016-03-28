@@ -43,6 +43,7 @@ public class TestEncoder
       //转码
         VideoAttributes videoAttributes = new VideoAttributes(); //视频编码
         videoAttributes.setSize(new VideoSize(720, 480)); //分辨率
+        videoAttributes.setPixFormat("yuv420p");
         
         AudioAttributes audioAttributes = new AudioAttributes(); //音频属性，必须设置，否则转码后没有声音
         

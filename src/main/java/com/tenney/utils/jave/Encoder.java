@@ -947,6 +947,11 @@ public class Encoder {
 				ffmpeg.addArgument("-vtag");
 				ffmpeg.addArgument(tag);
 			}
+			String pixFormat=videoAttributes.getPixFormat();
+			if (pixFormat != null) {
+				ffmpeg.addArgument("-pix_fmt");
+				ffmpeg.addArgument(pixFormat);
+			}
 			Integer bitRate = videoAttributes.getBitRate();
 			if (bitRate != null) {
 				ffmpeg.addArgument("-b");

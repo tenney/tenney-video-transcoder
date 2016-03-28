@@ -45,6 +45,8 @@ public class VideoAttributes implements Serializable {
 	 * The the forced tag/fourcc value for the video stream.
 	 */
 	private String tag = null;
+	
+	private String pixFormat=null;
 
 	/**
 	 * The bitrate value for the encoding process. If null or not specified a
@@ -169,9 +171,18 @@ public class VideoAttributes implements Serializable {
 		this.size = size;
 	}
 
+	
+	public String getPixFormat() {
+		return pixFormat;
+	}
+
+	public void setPixFormat(String pixFormat) {
+		this.pixFormat = pixFormat;
+	}
+
 	public String toString() {
 		return getClass().getName() + "(codec=" + codec + ", bitRate="
-				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ")";
+				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ", pixFormat=" + pixFormat+")";
 	}
 
 }
