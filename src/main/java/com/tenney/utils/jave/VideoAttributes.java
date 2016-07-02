@@ -34,13 +34,17 @@ public class VideoAttributes implements Serializable {
 	 * copy, without re-encoding of the audio stream.
 	 */
 	public static final String DIRECT_STREAM_COPY = "copy";
-
+	
 	/**
 	 * The codec name for the encoding process. If null or not specified the
 	 * encoder will perform a direct stream copy.
 	 */
 	private String codec = null;
-
+	
+	private String rate = null; //fps 设置帧频 缺省25
+	private String keyint_min = null; //-g 1 -keyint_min 2 ( -keyint_min 60 -g 60 -sc_threshold 0) -g参数，这个可以调整关键帧密度,其中-keyint_min为最小关键帧间隔
+	private String gop_size = null; //-g gop_size 设置图像组大小
+	private String sc_threshold = null;//-sc_threshold这个命令会根据视频的运动场景，自动为你添加额外的I帧，所以会导致你编出来的视频关键帧间隔不是你设置的长度，这是只要将它设为0，问题就得到解决了
 	/**
 	 * The the forced tag/fourcc value for the video stream.
 	 */
@@ -178,6 +182,71 @@ public class VideoAttributes implements Serializable {
 
 	public void setPixFormat(String pixFormat) {
 		this.pixFormat = pixFormat;
+	}
+	
+
+	/**
+	 * rate的getter方法
+	 * @return the rate
+	 */
+	public String getRate() {
+		return rate;
+	}
+
+	/**
+	 * rate的setter方法
+	 * @param rate the rate to set
+	 */
+	public void setRate(String rate) {
+		this.rate = rate;
+	}
+
+	/**
+	 * keyint_min的getter方法
+	 * @return the keyint_min
+	 */
+	public String getKeyint_min() {
+		return keyint_min;
+	}
+
+	/**
+	 * keyint_min的setter方法
+	 * @param keyint_min the keyint_min to set
+	 */
+	public void setKeyint_min(String keyint_min) {
+		this.keyint_min = keyint_min;
+	}
+
+	/**
+	 * sc_threshold的getter方法
+	 * @return the sc_threshold
+	 */
+	public String getSc_threshold() {
+		return sc_threshold;
+	}
+
+	/**
+	 * sc_threshold的setter方法
+	 * @param sc_threshold the sc_threshold to set
+	 */
+	public void setSc_threshold(String sc_threshold) {
+		this.sc_threshold = sc_threshold;
+	}
+
+	/**
+	 * gop_size的getter方法
+	 * @return the gop_size
+	 */
+	public String getGop_size() {
+		return gop_size;
+	}
+
+	/**
+	 * gop_size的setter方法
+	 * @param gop_size the gop_size to set
+	 */
+	public void setGop_size(String gop_size) {
+		this.gop_size = gop_size;
 	}
 
 	public String toString() {

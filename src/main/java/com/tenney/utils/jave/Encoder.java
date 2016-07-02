@@ -107,6 +107,7 @@ public class Encoder {
 	 */
 	private FFMPEGLocator locator;
 
+	private EncodingAttributes attributes;
 	/**
 	 * It builds an encoder using a {@link DefaultFFMPEGLocator} instance to
 	 * locate the ffmpeg executable to use.
@@ -147,6 +148,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -204,6 +206,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -261,6 +264,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -318,6 +322,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -377,6 +382,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -440,6 +446,7 @@ public class Encoder {
 			String line;
 			boolean evaluate = false;
 			while ((line = reader.readLine()) != null) {
+				logger.info(line);
 				if (line.trim().length() == 0) {
 					continue;
 				}
@@ -553,6 +560,7 @@ public class Encoder {
 				if (line == null) {
 					break;
 				}
+				logger.info(line);
 				if (step == 0) {
 					String token = source.getAbsolutePath() + ": ";
 					if (line.startsWith(token)) {
@@ -712,6 +720,12 @@ public class Encoder {
 			table.put(key, value);
 		}
 		return table;
+	}
+	
+	public void encode(File source, File target)
+			throws IllegalArgumentException, InputFormatException,
+			EncoderException {
+		encode(source, target, attributes, null);
 	}
 
 	/**
@@ -937,11 +951,31 @@ public class Encoder {
 		if (videoAttributes == null) {
 			ffmpeg.addArgument("-vn");
 		} else {
-			String codec = videoAttributes.getCodec();
-			if (codec != null) {
+			if (videoAttributes.getCodec() != null) {
 				ffmpeg.addArgument("-vcodec");
-				ffmpeg.addArgument(codec);
+				ffmpeg.addArgument(videoAttributes.getCodec());
 			}
+			
+			if(videoAttributes.getRate() != null){
+				ffmpeg.addArgument("-r");
+				ffmpeg.addArgument(videoAttributes.getRate());
+			}
+			
+			if(videoAttributes.getKeyint_min() != null){
+				ffmpeg.addArgument("-keyint_min");
+				ffmpeg.addArgument(videoAttributes.getKeyint_min());
+			}
+			
+			if(videoAttributes.getGop_size() != null){
+				ffmpeg.addArgument("-g");
+				ffmpeg.addArgument(videoAttributes.getGop_size());
+			}
+			
+			if(videoAttributes.getSc_threshold() != null){
+				ffmpeg.addArgument("-sc_threshold");
+				ffmpeg.addArgument(videoAttributes.getSc_threshold());
+			}
+			
 			String tag = videoAttributes.getTag();
 			if (tag != null) {
 				ffmpeg.addArgument("-vtag");
@@ -1164,15 +1198,31 @@ public class Encoder {
 		}
 	}
 	
-	public static void main(String[] args){
-	    Encoder encoder = new Encoder();
-        String parentPath="/Users/tenney/Desktop" ;//Test.class.getResource("/").getPath();
-        try {
-            encoder.getImage(new File(parentPath+"/rmvb01.mp4"), new File(parentPath+"/rmvb02.jpg"), 1);
-        } catch (EncoderException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } 
+	/**
+	 * attributes的getter方法
+	 * @return the attributes
+	 */
+	public EncodingAttributes getAttributes() {
+		return attributes;
 	}
+
+	/**
+	 * attributes的setter方法
+	 * @param attributes the attributes to set
+	 */
+	public void setAttributes(EncodingAttributes attributes) {
+		this.attributes = attributes;
+	}
+
+//	public static void main(String[] args){
+//	    Encoder encoder = new Encoder();
+//        String parentPath="/Users/tenney/Desktop" ;//Test.class.getResource("/").getPath();
+//        try {
+//            encoder.getImage(new File(parentPath+"/rmvb01.mp4"), new File(parentPath+"/rmvb02.jpg"), 1);
+//        } catch (EncoderException e) {
+//            e.printStackTrace();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } 
+//	}
 }

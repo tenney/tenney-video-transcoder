@@ -4,7 +4,7 @@
 
   <groupId>com.tenney.utils</groupId>
   <artifactId>tenney-video-transcoder</artifactId>
-  <version>1.0</version>
+  <version>1.2</version>
   <packaging>jar</packaging>
 
   <name>tenney-video-transcoder</name>
@@ -13,6 +13,14 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <distributionManagement>
+  	<repository>
+  		<id>nexus-releases</id>
+  		<name>Nexus Release Repository</name>
+  		<url>http://192.168.0.186:8081/nexus/content/repositories/releases/</url>
+  	</repository>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
